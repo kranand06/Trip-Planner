@@ -1,14 +1,13 @@
-import { useState } from 'react'
-import './App.css'
-import Button from '@mui/material/Button';
+import { Outlet } from "react-router-dom"
+import Navbar from "./Components/Navbar"
+import Header from "./Components/CopyHeader"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Hello This is trip Planner</h1>
-      <Button variant="contained">Button</Button>
+      <Navbar />
+      <Outlet />
     </>
   )
 }
