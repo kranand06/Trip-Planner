@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 function Home() {
   return (
-    <div className='flex flex-col items-center mx-56 gap-9 '>
+    <div className='min-h-screen flex flex-col items-center mx-56 gap-9 '>
         <h1 className='text-5xl font-extrabold text-center mt-16'>
             <span className='text-orange-400'>Discover Your Next Adventure with Al:</span> Personalized Itineraries at Your Fingertips
             </h1>
