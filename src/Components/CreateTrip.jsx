@@ -29,7 +29,7 @@ function CreateTrip() {
                             What is Destination of choice ?  🌍
                         </h2>
                         <GooglePlacesAutocomplete
-                            apiKey="AIzaSyDz5LqKS9GCJQkwfbrZ0OVb3RGmBd8EMmA"
+                            apiKey=""
                             selectProps={{ destination, onChange: (e) => setDestination(e) }}
                         />
 
