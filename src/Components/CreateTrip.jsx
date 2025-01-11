@@ -1,14 +1,33 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
 import Budget from "./helper.js"
 import { Traveller } from "./helper.js"
 import Button from '@mui/material/Button';
 import FlightIcon from '@mui/icons-material/Flight';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 
 function CreateTrip() {
-    const [destination, setDestination] = useState('')
+    const [destination, setDestination] = useState();
+    const [Formdata, setFormdata] = useState([]);
+
+    const handleInput = (type,data) => {
+        setFormdata({
+            ...Formdata,
+            [type]: data
+        })
+    }
+
+    const handleSubmit = () => {
+        if(!Formdata.place || !Formdata.days || !Formdata.budget || !Formdata.traveller){
+            toast.error("Please fill all the fields! 🥲",{position: "bottom-right"});
+            return;
+        }
+        console.log(Formdata);
+        toast.success("Submitted Successfully! 🚀",{position: "bottom-right"});
+    }
 
 
     return (
@@ -29,8 +48,12 @@ function CreateTrip() {
                             What is Destination of choice ?  🌍
                         </h2>
                         <GooglePlacesAutocomplete
-                            apiKey=""
-                            selectProps={{ destination, onChange: (e) => setDestination(e) }}
+                            apiKey="AIzaSyDz5LqKS9GCJQkwfbrZ0OVb3RGmBd8EMmA"
+                            selectProps={{ destination,
+                                onChange: (e) =>{
+                                    setDestination(e) 
+                                    handleInput("place",e.label)
+                                }}}
                         />
 
                     </div>
@@ -40,7 +63,9 @@ function CreateTrip() {
                             How many days are you planning your trip for?
                         </h2>
 
-                        <input type="number" name="days" id="days" placeholder="Ex.4" className=" mt-3 block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                        <input required type="number" name="days" id="days" placeholder="Ex.4" 
+                        onChange={(e) => {handleInput("days",e.target.value)}}
+                        className=" mt-3 block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     </div>
                     <div>
                         <h2 className="text-xl font-medium mt-4">
@@ -53,7 +78,9 @@ function CreateTrip() {
                             {
                                 Budget.map((item) => {
                                     return (
-                                        <div key={item.id} className="p-4 border rounded-lg hover:shadow-lg">
+                                        <div key={item.id} 
+                                        onClick={() => handleInput("budget",item.title)}
+                                        className={`p-4 border rounded-lg hover:shadow-lg ${item.title === Formdata.budget ? "bg-gray-100 border-black" : ""}`}>
                                             <h2 className="text-4xl">{item.icon}</h2>
                                             <h2 className="font-bold text-lg">{item.title}</h2>
                                             <h2 className="text-sm text-gray-500">{item.desc}</h2>
@@ -72,7 +99,9 @@ function CreateTrip() {
                             {
                                 Traveller.map((item) => {
                                     return (
-                                        <div key={item.id} className="p-4 border rounded-lg hover:shadow-lg">
+                                        <div key={item.id}
+                                        onClick={() => handleInput("traveller",item.title)}
+                                        className={`p-4 border rounded-lg hover:shadow-lg ${item.title === Formdata.traveller ? "bg-gray-100 border-black" : ""}`}>
                                             <h2 className="text-4xl">{item.icon}</h2>
                                             <h2 className="font-bold text-lg">{item.title}</h2>
                                             <h2 className="text-sm text-gray-500">{item.desc}</h2>
@@ -83,7 +112,8 @@ function CreateTrip() {
                         </div>
                     </div>
                     <div className="mb-16 flex justify-center">
-                        <Button size='large' className='bg-black' variant="contained" endIcon={<FlightIcon />}>Generate Trip</Button>
+                        <Button onClick={handleSubmit} size='large' className='bg-black' variant="contained" endIcon={<FlightIcon />}>Generate Trip</Button>
+                        <ToastContainer />
                     </div>
 
                 </div>
