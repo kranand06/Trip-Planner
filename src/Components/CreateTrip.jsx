@@ -32,7 +32,7 @@ function CreateTrip() {
 
     return (
         <>
-            <div className=" sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-10 mt-14">
+           <div className=" sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-10 mt-14">
                 <div>
 
                     <h2 className="text-4xl font-bold my-4">
@@ -48,7 +48,7 @@ function CreateTrip() {
                             What is Destination of choice ?  🌍
                         </h2>
                         <GooglePlacesAutocomplete
-                            apiKey=""
+                            apiKey={import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY}
                             selectProps={{ destination,
                                 onChange: (e) =>{
                                     setDestination(e) 
