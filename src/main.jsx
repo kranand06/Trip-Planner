@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './Components/Home.jsx'
 import Error404 from './Components/Error404.jsx'
 import CreateTrip from './Components/CreateTrip.jsx'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 const route = createBrowserRouter([
   {
@@ -30,6 +32,8 @@ const route = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <RouterProvider router={route} />
+    </GoogleOAuthProvider>
   </StrictMode>,
 )

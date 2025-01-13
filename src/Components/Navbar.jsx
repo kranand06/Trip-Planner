@@ -39,9 +39,7 @@ function Navbar() {
 
 
                 <div className='flex space-x-5'>
-                    <Button size='small' className='text-black border-black' variant="text">Log in</Button>
                     <Button size='large' className='bg-black' variant="contained">Sign UP</Button>
-
                 </div>
             </div>
             </header>

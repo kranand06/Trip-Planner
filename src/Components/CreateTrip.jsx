@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
-import Budget from "./helper.js"
+import Budget, { AiPrompt } from "./helper.js"
 import { Traveller } from "./helper.js"
 import Button from '@mui/material/Button';
 import FlightIcon from '@mui/icons-material/Flight';
 import { ToastContainer, toast } from 'react-toastify';
+import chatSession from "./AIModal.js";
+import js from "@eslint/js";
+
 
 
 
@@ -12,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function CreateTrip() {
     const [destination, setDestination] = useState();
     const [Formdata, setFormdata] = useState([]);
+    const [signed, setsigned] = useState();
 
     const handleInput = (type,data) => {
         setFormdata({
@@ -20,13 +24,24 @@ function CreateTrip() {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if(!Formdata.place || !Formdata.days || !Formdata.budget || !Formdata.traveller){
             toast.error("Please fill all the fields! 🥲",{position: "bottom-right"});
             return;
         }
-        console.log(Formdata);
+        const prompt=AiPrompt.replace("{location}",Formdata.place).replace("{days}",Formdata.days).replace("{traveller}",Formdata.traveller).replace("{budget}",Formdata.budget).replace("{days}",Formdata.days);
         toast.success("Submitted Successfully! 🚀",{position: "bottom-right"});
+        const res = await chatSession.sendMessage(prompt);
+        const result = JSON.parse(res.response.candidates[0].content.parts[0].text);
+        console.log(result);
+        
+    }
+
+
+    const user=localStorage.getItem("user");
+    if(!user){
+        setsigned(false);
+
     }
 
 
@@ -48,7 +63,7 @@ function CreateTrip() {
                             What is Destination of choice ?  🌍
                         </h2>
                         <GooglePlacesAutocomplete
-                            apiKey={import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY}
+                            apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
                             selectProps={{ destination,
                                 onChange: (e) =>{
                                     setDestination(e) 

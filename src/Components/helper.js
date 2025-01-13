@@ -29,22 +29,25 @@ export const Traveller=[
     },
     {
         id:2,
-        title : "Couple",
+        title : "A Couple",
         desc: 'Two travel in tandem',
         icon: ' 👫',
     },
     {
         id:3,
-        title : "Family",
+        title : "My Family",
         desc: 'A family for the trip',
         icon:  '👨‍👩‍👧‍👦',
     },
     {
         id:4,
-        title : "Friends",
+        title : "A Friend Group",
         desc: 'Group of thrill-seekers',
         icon: '🎢',
     },
 ]
+
+export const AiPrompt="Generate Travel Plan for Location: {location}, for {days} Days for {traveller} with a {budget} budget, Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket, Pricing,ratings, Time to travel each of the location for {days} days with each day plan with best time to visit in JSON format."
+
 
 export default Budget
