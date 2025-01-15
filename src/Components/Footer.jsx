@@ -16,7 +16,7 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="hidden md:flex md:flex-col flex-row gap-4">
             <NavLink to="/createtrip" className="hover:text-gray-300">
               Create Trip
             </NavLink>

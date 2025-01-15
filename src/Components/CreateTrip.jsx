@@ -1,22 +1,24 @@
 import { useState } from "react"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
-import Budget, { AiPrompt } from "./helper.js"
-import { Traveller } from "./helper.js"
+import Budget, { Traveller, AiPrompt } from "./helper.js"
 import Button from '@mui/material/Button';
 import FlightIcon from '@mui/icons-material/Flight';
 import { ToastContainer, toast } from 'react-toastify';
 import chatSession from "./AIModal.js";
-import GoogleIcon from '@mui/icons-material/Google';
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from '@react-oauth/google';
+import { AiOutlineLoading } from "react-icons/ai";
+import { MdOutlineAirplanemodeActive } from "react-icons/md";
 
-import TextField from '@mui/material/TextField';
+
+
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
+
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./firebase.js";
+
 
 
 
@@ -24,6 +26,7 @@ function CreateTrip() {
     const [destination, setDestination] = useState();
     const [Formdata, setFormdata] = useState([]);
     const [open, setOpen] = useState(false);
+    const [Load, setLoad] = useState(false);
 
     const handleInput = (type, data) => {
         setFormdata({
@@ -38,12 +41,12 @@ function CreateTrip() {
     });
 
     const getUserInfo = (token) => {
-        axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${token}`,{
-            headers:{
+        axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${token}`, {
+            headers: {
                 Authorization: `Bearer ${token}`,
                 Accept: `Application/json`
             }
-        }).then((res)=>{
+        }).then((res) => {
             localStorage.setItem("user", JSON.stringify(res.data));
             setOpen(false);
             handleSubmit();
@@ -64,12 +67,25 @@ function CreateTrip() {
             toast.error("Please fill all the fields! 🥲", { position: "bottom-right" });
             return;
         }
+        setLoad(true);
         const prompt = AiPrompt.replace("{location}", Formdata.place).replace("{days}", Formdata.days).replace("{traveller}", Formdata.traveller).replace("{budget}", Formdata.budget).replace("{days}", Formdata.days);
         toast.success("Submitted Successfully! 🚀", { position: "bottom-right" });
         const res = await chatSession.sendMessage(prompt);
         const result = JSON.parse(res.response.candidates[0].content.parts[0].text);
-        console.log(result);
+        setLoad(false);
+        saveData(result);
+    }
 
+    const saveData = async (data) => {
+        setLoad(true);
+        const docId = Date.now().toString();
+        const user = JSON.parse(localStorage.getItem("user"));
+        await setDoc(doc(db, "tripper", docId), {
+            userDetail: user,
+            userInput: Formdata,
+            tripInfo: data,
+        });
+        setLoad(false);
     }
 
 
@@ -157,7 +173,14 @@ function CreateTrip() {
                         </div>
                     </div>
                     <div className="mb-16 flex justify-center">
-                        <Button onClick={handleSubmit} size='large' className='bg-black' variant="contained" endIcon={<FlightIcon />}>Generate Trip</Button>
+                        <Button
+                            disabled={Load}
+                            onClick={handleSubmit} size='large' className='bg-black' variant="contained" >
+                            {Load ? <AiOutlineLoading color="white"
+                                className="m-2 h-8 w-8 animate-spin" />
+                                : <>Generate Trip <MdOutlineAirplanemodeActive className="h-5 w-8" />
+                                </>}</Button>
+
                         <ToastContainer />
 
                         <Dialog open={open} onClose={() => setOpen(false)} >
@@ -170,7 +193,7 @@ function CreateTrip() {
 
                             </DialogContent>
                             <Button onClick={() => login()} size='large' className='bg-black m-4' variant="contained" >< FcGoogle className="w-12 h-6" ></FcGoogle>
-                             Sign in </Button>
+                                Sign in </Button>
 
 
 
