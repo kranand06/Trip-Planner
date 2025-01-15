@@ -18,6 +18,7 @@ import axios from "axios";
 
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -27,6 +28,8 @@ function CreateTrip() {
     const [Formdata, setFormdata] = useState([]);
     const [open, setOpen] = useState(false);
     const [Load, setLoad] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleInput = (type, data) => {
         setFormdata({
@@ -86,6 +89,7 @@ function CreateTrip() {
             tripInfo: data,
         });
         setLoad(false);
+        navigate("/viewtrip/" + docId);
     }
 
 

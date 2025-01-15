@@ -7,6 +7,7 @@ import Home from './Components/Home.jsx'
 import Error404 from './Components/Error404.jsx'
 import CreateTrip from './Components/CreateTrip.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import ViewTrip from './Components/viewtrip.jsx'
 
 
 const route = createBrowserRouter([
@@ -21,6 +22,10 @@ const route = createBrowserRouter([
       {
         path: '/createtrip',
         element: <CreateTrip />,
+      },
+      {
+        path: '/viewtrip/:tripId',
+        element: <ViewTrip />,
       },
       {
         path: '*',
