@@ -1,20 +1,13 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
 import Budget, { Traveller, AiPrompt } from "./helper.js"
 import Button from '@mui/material/Button';
-import FlightIcon from '@mui/icons-material/Flight';
 import { ToastContainer, toast } from 'react-toastify';
 import chatSession from "./AIModal.js";
-import { FcGoogle } from "react-icons/fc";
-import { useGoogleLogin } from '@react-oauth/google';
 import { AiOutlineLoading } from "react-icons/ai";
 import { MdOutlineAirplanemodeActive } from "react-icons/md";
-
-
-
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import axios from "axios";
+import Signin from "./Signin";
+import { UserContext } from '../App';
 
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
@@ -26,8 +19,8 @@ import { useNavigate } from "react-router-dom";
 function CreateTrip() {
     const [destination, setDestination] = useState();
     const [Formdata, setFormdata] = useState([]);
-    const [open, setOpen] = useState(false);
     const [Load, setLoad] = useState(false);
+    const value = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -38,31 +31,12 @@ function CreateTrip() {
         })
     }
 
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => getUserInfo(tokenResponse.access_token),
-        onError: error => console.log(error),
-    });
-
-    const getUserInfo = (token) => {
-        axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${token}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: `Application/json`
-            }
-        }).then((res) => {
-            localStorage.setItem("user", JSON.stringify(res.data));
-            setOpen(false);
-            handleSubmit();
-            console.log(res.data);
-        })
-
-    }
 
     const handleSubmit = async () => {
 
         const user = localStorage.getItem("user");
         if (!user) {
-            setOpen(true);
+            value.setOpen(true);
             return;
         }
 
@@ -95,7 +69,7 @@ function CreateTrip() {
 
     return (
         <>
-            <div className=" sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-10 mt-14">
+            <div className="min-h-screen sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-10 mt-14">
                 <div>
 
                     <h2 className="text-4xl font-bold my-4">
@@ -186,22 +160,8 @@ function CreateTrip() {
                                 </>}</Button>
 
                         <ToastContainer />
+                        <Signin />
 
-                        <Dialog open={open} onClose={() => setOpen(false)} >
-                            <img src="/logoNavbar.png" alt="logo" className="w-44 m-5 mb-0" />
-
-                            <DialogContent>
-                                <h2 className="text-2xl font-bold">Sign-in with Google</h2>
-                                <h3 className="text-lg font-normal">Seamlessly Sign-in to the app with your Google account directly</h3>
-
-
-                            </DialogContent>
-                            <Button onClick={() => login()} size='large' className='bg-black m-4' variant="contained" >< FcGoogle className="w-12 h-6" ></FcGoogle>
-                                Sign in </Button>
-
-
-
-                        </Dialog>
                     </div>
 
                 </div>

@@ -17,19 +17,7 @@ export default function FormDialog() {
       <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button>
-      <Dialog open={open} onClose={handleClose}
-        // PaperProps={{
-        //   component: 'form',
-        //   onSubmit: (event) => {
-        //     event.preventDefault();
-        //     const formData = new FormData(event.currentTarget);
-        //     const formJson = Object.fromEntries(formData.entries());
-        //     const email = formJson.email;
-        //     console.log(email);
-        //     handleClose();
-        //   },
-        // }}
-      >
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>

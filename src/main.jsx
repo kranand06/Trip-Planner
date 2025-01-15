@@ -8,6 +8,12 @@ import Error404 from './Components/Error404.jsx'
 import CreateTrip from './Components/CreateTrip.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ViewTrip from './Components/viewtrip.jsx'
+import Mytrip from './Components/mytrip.jsx'
+import ProfilePage from './Components/profilrgpt.jsx'
+
+
+
+
 
 
 const route = createBrowserRouter([
@@ -28,17 +34,26 @@ const route = createBrowserRouter([
         element: <ViewTrip />,
       },
       {
+        path: '/mytrips',
+        element: <Mytrip />,
+      },
+      {
+        path: '/myprofile',
+        element: <ProfilePage />,
+      },
+      {
         path: '*',
         element: <Error404 />,
       },
     ]
   }
-    ])
+])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}>
-    <RouterProvider router={route} />
-    </GoogleOAuthProvider>
+    
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}>
+        <RouterProvider router={route} />
+      </GoogleOAuthProvider>
   </StrictMode>,
 )

@@ -32,7 +32,7 @@ function ViewTrip() {
 
 
     return (
-        <div>
+        <div className='min-h-screen  '>
             {JSON.stringify(Data)}
         </div>
     )

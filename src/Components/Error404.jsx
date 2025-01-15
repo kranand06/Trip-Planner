@@ -2,7 +2,7 @@ import React from 'react';
 
 const Error404 = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-gray-800">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-800">
       
       {/* 404 Text */}
       <h1 className="text-5xl font-bold text-gray-300 tracking-widest mb-6">
