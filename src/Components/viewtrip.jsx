@@ -33,7 +33,7 @@ function ViewTrip() {
 
     return (
         <div>
-            {JSON.stringify(Data.userDetail)}
+            {JSON.stringify(Data)}
         </div>
     )
 }
