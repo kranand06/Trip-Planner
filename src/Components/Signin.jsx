@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import { useGoogleLogin } from '@react-oauth/google';
-import { FcGoogle } from "react-icons/fc";
-import Button from '@mui/material/Button';
+import axios from "axios"; //axios for data fetching
+import { FcGoogle } from "react-icons/fc"; //google icon
+import { RxCross2 } from "react-icons/rx"; //cross icon
 
+//you have to install react-oauth , react-icon, material-ui, axios
+
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import axios from "axios";
 import { UserContext } from '../App';
 
 function Signin() {
@@ -24,7 +27,6 @@ function Signin() {
         }).then((res) => {
             localStorage.setItem("user", JSON.stringify(res.data));
             value.setOpen(false);
-            console.log(res.data);
         })
 
     }
@@ -33,10 +35,16 @@ function Signin() {
     return (
 
         <Dialog open={value.open} onClose={() => value.setOpen(false)} >
-            <img src="/logoNavbar.png" alt="logo" className="w-44 m-5 mb-0" />
-
+            <div className='flex justify-between items-center'>
+            <img src="/logoNavbar.png" alt="logo" className="w-48 m-5 mb-0" />
+            <div className=' p-5' onClick={() => value.setOpen(false)} ><RxCross2 className='w-6 h-6'></RxCross2></div>
+            </div>
             <DialogContent>
-                <h2 className="text-2xl font-bold">Sign-in with Google</h2>
+                
+                    <h2 className="text-2xl font-bold">Sign-in with Google</h2>
+                   
+                    
+               
                 <h3 className="text-lg font-normal">Seamlessly Sign-in to the app with your Google account directly</h3>
 
 

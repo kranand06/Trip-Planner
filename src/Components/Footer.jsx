@@ -20,7 +20,7 @@ const Footer = () => {
             <NavLink to="/createtrip" className="hover:text-gray-300">
               Create Trip
             </NavLink>
-            <NavLink to="/about" className="hover:text-gray-300">
+            <NavLink to="/mytrips" className="hover:text-gray-300">
               My Trips
             </NavLink>
             <NavLink to="/contact" className="hover:text-gray-300">
