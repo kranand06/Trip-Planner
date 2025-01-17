@@ -25,7 +25,7 @@ function HotelsCard({ hotel }) {
     return (
         <Link to={"https://www.google.com/maps/search/?api=1&query=" + hotel.hotelName + " " + value.location} target="_blank">
             <div className=' rounded-xl hover:scale-105 transition-all' >
-                <img className='w-full object-cover rounded-xl' src={imageurl} alt="hotel picture" />
+                <img className='w-full h-80 object-cover rounded-xl' src={imageurl} alt="hotel picture" />
                 <div>
                     <h2 className='font-medium text-lg pt-2'>
                         {hotel.hotelName}
