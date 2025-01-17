@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import GetPhoto from '../getPhoto';
 
 function Info({Data}) {
 
+  const [imageurl, setimageurl] = useState()
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const url = await GetPhoto(Data?.userInput.place);
+            setimageurl(url)
+        };
+        fetchImage();
+    }, [Data])
+
   return (
     <div>
-      <img className='h-80 w-full object-cover rounded-xl' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD3BfG2IcF-2BNXb5OUBWWfK7DAbOuuBrdQA&s" alt="trip picture" />
+      <img className='h-80 w-full object-cover rounded-xl' src={imageurl} alt="trip picture" />
       <div>
-        <h2 className='font-bold text-3xl my-5'>
+        <h2 className='font-bold text-4xl my-5'>
           {Data?.userInput.place}
         </h2>
         <div className='flex flex-row gap-5'>

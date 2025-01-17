@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import GetPhoto from './getPhoto';
 
 function Mytripcard({ trip }) {
 
-  // console.log(trip);
+  const [imageurl, setimageurl] = useState()
+
+  useEffect(() => {
+      const fetchImage = async () => {
+          const url = await GetPhoto(trip.userInput.place);
+          setimageurl(url)
+      };
+      fetchImage();
+  }, [trip])
 
 
   return (
     <Link to={"/viewtrip/"+trip.id}>
       <div className='shadow-lg p-5 rounded-xl border-2 hover:scale-105 transition-all' >
-        <img className='w-full object-cover rounded-xl' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD3BfG2IcF-2BNXb5OUBWWfK7DAbOuuBrdQA&s" alt="trip picture" />
+        <img className='w-full h-60 object-cover rounded-xl' src={imageurl} alt="trip picture" />
         <div>
           <h2 className='font-bold text-xl pt-2'>
             {trip.userInput.place}

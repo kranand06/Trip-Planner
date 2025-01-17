@@ -4,12 +4,20 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import Info from './Info.jsx';
 import Hotels from './Hotels.jsx';
+import Itinerary from './Itinerary.jsx';
+import { createContext } from 'react';
+
+export const LocationContext = createContext()
 
 function ViewTrip() {
+    const [location, setLocation] = useState(false);
+
 
     const { tripId } = useParams();
 
     const [Data, setData] = useState();
+
+    
 
     useEffect(() => {
         tripId&&GetTripData();
@@ -22,7 +30,8 @@ function ViewTrip() {
 
         if (docSnap.exists()) {
             setData(docSnap.data());
-            // console.log("Document data:", docSnap.data());
+            setLocation(docSnap.data()?.userInput.place);
+            // console.log("Document data:", docSnap.data()?.userInput.place);
         }
         else {
             console.log("No such document!");
@@ -32,10 +41,15 @@ function ViewTrip() {
 
 
     return (
+        <>
+        <LocationContext.Provider value={{ location, setLocation }}>
         <div className="min-h-screen sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-1 mt-14">
             <Info Data={Data} />
             <Hotels hotel={Data?.tripInfo.hotelOptions} />
+            <Itinerary data ={Data?.tripInfo.itinerary} />
         </div>
+        </LocationContext.Provider>
+        </>
     )
 }
 
