@@ -7,9 +7,9 @@ import Home from './Components/Home.jsx'
 import Error404 from './Components/Error404.jsx'
 import CreateTrip from './Components/CreateTrip.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import ViewTrip from './Components/viewtrip.jsx'
+import ViewTrip from './Components/ViewTrip/viewtrip.jsx'
 import Mytrip from './Components/mytrip.jsx'
-import ProfilePage from './Components/profilrgpt.jsx'
+import ProfilePage from './Components/ProfilePage.jsx'
 
 
 

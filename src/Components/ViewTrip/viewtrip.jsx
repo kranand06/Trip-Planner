@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase.js";
+import { db } from "../firebase.js";
+import Info from './Info.jsx';
+import Hotels from './Hotels.jsx';
 
 function ViewTrip() {
 
     const { tripId } = useParams();
 
     const [Data, setData] = useState();
-    const [stringData, setStringData] = useState();
 
     useEffect(() => {
         tripId&&GetTripData();
-        setStringData(JSON.stringify(Data));
-    }, [tripId]);
+    },[tripId]);
 
     const GetTripData = async () => {
         // Fetch data from the server using tripId
@@ -32,8 +32,9 @@ function ViewTrip() {
 
 
     return (
-        <div className='min-h-screen  '>
-            {JSON.stringify(Data)}
+        <div className="min-h-screen sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-1 mt-14">
+            <Info Data={Data} />
+            <Hotels hotel={Data?.tripInfo.hotelOptions} />
         </div>
     )
 }

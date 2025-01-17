@@ -47,7 +47,8 @@ export const Traveller=[
     },
 ]
 
-export const AiPrompt="Generate Travel Plan for Location: {location}, for {days} Days for {traveller} with a {budget} budget, Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket, Pricing,ratings, Time to travel each of the location for {days} days with each day plan with best time to visit in JSON format."
+export const AiPrompt="Generate Travel Plan for Location: {location}, for {days} Days for {traveller} with a {budget} budget, Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url,  rating and suggest itinerary in an array format with placeName, Place Details, Place Image Url, Geo Coordinates, ticket, Pricing,ratings, Time to travel each of the location for {days} days with each day plan with best time to visit in JSON format."
+
 
 
 export default Budget
