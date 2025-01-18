@@ -17,21 +17,19 @@ function ViewTrip() {
 
     const [Data, setData] = useState();
 
-    
+
 
     useEffect(() => {
-        tripId&&GetTripData();
-    },[tripId]);
+        tripId && GetTripData();
+    }, [tripId]);
 
     const GetTripData = async () => {
-        // Fetch data from the server using tripId
         const docRef = doc(db, "tripper", tripId);
         let docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
             setData(docSnap.data());
             setLocation(docSnap.data()?.userInput.place);
-            // console.log("Document data:", docSnap.data()?.userInput.place);
         }
         else {
             console.log("No such document!");
@@ -42,13 +40,13 @@ function ViewTrip() {
 
     return (
         <>
-        <LocationContext.Provider value={{ location, setLocation }}>
-        <div className="min-h-screen sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-1 mt-14">
-            <Info Data={Data} />
-            <Hotels hotel={Data?.tripInfo.hotelOptions} />
-            <Itinerary data ={Data?.tripInfo.itinerary} />
-        </div>
-        </LocationContext.Provider>
+            <LocationContext.Provider value={{ location, setLocation }}>
+                <div className="min-h-screen px-4 sm:px-10 md:px-20 lg:px-40 xl:px-56 mt-14">
+                    <Info Data={Data} />
+                    <Hotels hotel={Data?.tripInfo.hotelOptions} />
+                    <Itinerary data={Data?.tripInfo.itinerary} />
+                </div>
+            </LocationContext.Provider>
         </>
     )
 }

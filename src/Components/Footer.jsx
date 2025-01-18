@@ -6,17 +6,14 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-6">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          {/* Logo and Description */}
-          <div className="mb-4 md:mb-0">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <div className="mb-4 sm:mb-0 text-center sm:text-left">
             <h2 className="text-xl font-bold">Tripper</h2>
             <p className="text-sm text-gray-400">
               Your smart travel companion for seamless trip planning.
             </p>
           </div>
-
-          {/* Navigation Links */}
-          <div className="hidden lg:flex  flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-center sm:text-left mt-4 sm:mt-0">
             <NavLink to="/createtrip" className="hover:text-gray-300">
               Create Trip
             </NavLink>
@@ -30,9 +27,7 @@ const Footer = () => {
               Terms of Service
             </NavLink>
           </div>
-
-          {/* Social Media Icons */}
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex space-x-4 mt-4 sm:mt-0">
             <a
               href="https://facebook.com"
               target="_blank"
@@ -59,8 +54,6 @@ const Footer = () => {
             </a>
           </div>
         </div>
-
-        {/* Copyright Section */}
         <div className="text-center text-gray-500 text-sm mt-6">
           © 2025 Tripper. All Rights Reserved.
         </div>

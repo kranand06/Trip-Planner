@@ -58,8 +58,8 @@ function CreateTrip() {
         const docId = Date.now().toString();
         const user = JSON.parse(localStorage.getItem("user"));
         await setDoc(doc(db, "tripper", docId), {
-            id:docId,
-            userMail : user.email,
+            id: docId,
+            userMail: user.email,
             userDetail: user,
             userInput: Formdata,
             tripInfo: data,
@@ -71,19 +71,19 @@ function CreateTrip() {
 
     return (
         <>
-            <div className="min-h-screen sm:px-10 md:px-32 lg:px-56 xl:px-56 2xl:px-56 px-10 mt-14">
+            <div className="min-h-screen px-6 sm:px-10 md:px-20 lg:px-40 xl:px-56 mt-14">
                 <div>
 
-                    <h2 className="text-4xl font-bold my-4">
+                    <h2 className="text-3xl sm:text-4xl font-bold my-4">
                         Tell us your travel preferences 🚀
                     </h2>
-                    <p className=" text-gray-600 text-xl">
+                    <p className="text-lg sm:text-xl text-gray-600">
                         Just provide some basic information, and our trip planner will generate a customized itinerary based on your preferences.
                     </p>
                 </div>
-                <div className="flex flex-col gap-10 mt-20">
+                <div className="flex flex-col gap-10 mt-14">
                     <div>
-                        <h2 className="my-4 text-xl font-medium ">
+                        <h2 className="text-lg sm:text-xl font-medium my-4">
                             What is Destination of choice ?  🌍
                         </h2>
                         <GooglePlacesAutocomplete
@@ -100,62 +100,65 @@ function CreateTrip() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-medium my-4">
+                        <h2 className="text-lg sm:text-xl font-medium my-4">
                             How many days are you planning your trip for?
                         </h2>
 
                         <input required type="number" name="days" id="days" placeholder="Ex.4"
                             onChange={(e) => { handleInput("days", e.target.value) }}
-                            className=" mt-3 block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            className="block w-full rounded-md bg-white px-4 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600 transition-all sm:text-lg"
+                        />
                     </div>
                     <div>
-                        <h2 className="text-xl font-medium mt-4">
+                        <h2 className="text-lg sm:text-xl font-medium my-4">
                             What is your Budget?
                         </h2>
-                        <h3 className="text-lg font-normal">
+                        <h3 className="text-base sm:text-lg font-normal text-gray-600">
                             This will help us suggest the best places to stay, eat and visit.
                         </h3>
-                        <div className="grid grid-cols-3 gap-5 my-5">
-                            {
-                                Budget.map((item) => {
-                                    return (
-                                        <div key={item.id}
-                                            onClick={() => handleInput("budget", item.title)}
-                                            className={`p-4 border rounded-lg hover:shadow-lg ${item.title === Formdata.budget ? "bg-gray-100 border-black" : ""}`}>
-                                            <h2 className="text-4xl">{item.icon}</h2>
-                                            <h2 className="font-bold text-lg">{item.title}</h2>
-                                            <h2 className="text-sm text-gray-500">{item.desc}</h2>
-                                        </div>
-                                    )
-                                })
-                            }
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                            {Budget.map((item) => (
+                                <div
+                                    key={item.id}
+                                    onClick={() => handleInput("budget", item.title)}
+                                    className={`p-5 border rounded-lg cursor-pointer hover:shadow-lg transition-all duration-200 ${item.title === Formdata.budget ? "bg-gray-100 border-black" : ""
+                                        }`}
+                                >
+                                    <h2 className="text-4xl">{item.icon}</h2>
+                                    <h2 className="font-bold text-lg">{item.title}</h2>
+                                    <h2 className="text-sm text-gray-500">{item.desc}</h2>
+                                </div>
+                            ))}
                         </div>
                     </div>
+
+
                     <div>
-                        <h2 className="text-xl font-medium mt-4">
+                        <h2 className="text-lg sm:text-xl font-medium my-4">
                             Who do you plan on traveling with on your next adventure?
                         </h2>
 
-                        <div className="grid grid-cols-3 gap-5 my-5">
-                            {
-                                Traveller.map((item) => {
-                                    return (
-                                        <div key={item.id}
-                                            onClick={() => handleInput("traveller", item.title)}
-                                            className={`p-4 border rounded-lg hover:shadow-lg ${item.title === Formdata.traveller ? "bg-gray-100 border-black" : ""}`}>
-                                            <h2 className="text-4xl">{item.icon}</h2>
-                                            <h2 className="font-bold text-lg">{item.title}</h2>
-                                            <h2 className="text-sm text-gray-500">{item.desc}</h2>
-                                        </div>
-                                    )
-                                })
-                            }
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                            {Traveller.map((item) => (
+                                <div
+                                    key={item.id}
+                                    onClick={() => handleInput("traveller", item.title)}
+                                    className={`p-5 border rounded-lg cursor-pointer hover:shadow-lg transition-all duration-200 ${item.title === Formdata.traveller ? "bg-gray-100 border-black" : ""
+                                        }`}
+                                >
+                                    <h2 className="text-4xl">{item.icon}</h2>
+                                    <h2 className="font-bold text-lg">{item.title}</h2>
+                                    <h2 className="text-sm text-gray-500">{item.desc}</h2>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                    <div className="mb-16 flex justify-center">
+
+                    <div className="flex justify-center mb-16">
                         <Button
                             disabled={Load}
-                            onClick={handleSubmit} size='large' className='bg-black' variant="contained" >
+                            onClick={handleSubmit} size='large' className="bg-black px-6 py-3 text-lg sm:text-xl transition-all"
+                            variant="contained" >
                             {Load ? <AiOutlineLoading color="white"
                                 className="m-2 h-8 w-8 animate-spin" />
                                 : <>Generate Trip <MdOutlineAirplanemodeActive className="h-5 w-8" />
